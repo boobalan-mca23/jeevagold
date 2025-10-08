@@ -172,6 +172,7 @@ const MasterExpense = () => {
     const enteredPurity = parseFloat(formData.purity || 0);
 
     if (formData.valueType === "cash/gold") {
+       setSaveDisable(true)
       if (enteredPurity > totalCashGoldEntriesPurity) {
         toast.error(
           `Entered purity exceeds available Cash/Gold limit (${totalCashGoldEntriesPurity})`
@@ -179,6 +180,7 @@ const MasterExpense = () => {
         return;
       }
     } else if (formData.valueType === "advance") {
+      setSaveDisable(true)
       if (enteredPurity > advancesGold) {
         toast.error(
           `Entered purity exceeds available Advance limit (${advancesGold})`
@@ -202,7 +204,7 @@ const MasterExpense = () => {
           valueType: mapValueTypeToBackend(formData.valueType),
         }),
       });
-      setSaveDisable(true)
+     
       if (!response.ok) throw new Error("Failed to save expense");
       const newExpense = await response.json();
 
@@ -218,9 +220,12 @@ const MasterExpense = () => {
         );
         await fetchLimits();
         toast.success("Expense updated successfully!");
+      if(response.ok) {
+        console.log('ok update')
+       }
       } else {
        if(response.ok) {
-         setSaveDisable(false)
+        console.log('ok')
        }
         updatedExpenses = [
           ...entries,
@@ -240,6 +245,7 @@ const MasterExpense = () => {
       
       resetForm();
       setShowFormPopup(false);
+      setSaveDisable(false)
     } catch (error) {
       console.error(error);
       toast.error("Error saving expense.");
@@ -385,8 +391,8 @@ const MasterExpense = () => {
               </div>
 
               <div className="button-group">
-                <button type="submit" className="submit-btn" disabled={saveDisable}>
-                  {isEditMode ? "Update" : "Save"}
+                <button type="submit" className="submit-btn" disabled={saveDisable} style={{background:saveDisable?"grey":"#28a745"}}>
+                  {isEditMode ? "Update" : saveDisable?"Expense is Saving...":"Save"}
                 </button>
                 <button
                   type="button"
