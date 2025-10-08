@@ -1,0 +1,152 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif; 
+}
+
+.home-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden; 
+}
+
+.left-side {
+    width: 35%; 
+    background: linear-gradient(to bottom, #2c3e50, #34495e); 
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.large-logo {
+    max-width: 80%; 
+    margin-bottom: 30px;
+}
+
+.right-side {
+    flex-grow: 1;
+    background-image: url('your-background-image.jpg'); 
+    background-size: cover;
+    background-position: center;
+    position: relative; 
+    animation: backgroundAnimation 10s ease infinite alternate; 
+}
+
+@keyframes backgroundAnimation {
+    0% {
+        filter: hue-rotate(0deg); 
+    }
+    100% {
+        filter: hue-rotate(360deg); 
+    }
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-header i {
+    font-size: 40px;
+    color: #3498db; 
+    margin-bottom: 10px;
+}
+
+.login-header h2 {
+    font-size: 2em;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background: linear-gradient(to bottom, #2c3e50, #34495e); 
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+}
+
+.login-footer a {
+    color: #777;
+    text-decoration: none;
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-container input {
+  width: 100%;
+  padding: 12px;
+  padding-right: 35px; 
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; 
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+}
+
+@keyframes animate {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(20%, -30%); 
+    }
+} 
+
+  
+
+
+
+ 
