@@ -41,7 +41,6 @@ const ReceivedDetails = ({
     if (isViewMode) {
       hallmark = parseFloatSafe(displayHallmarkCharges);
     } else {
-     
       hallmark = parseFloatSafe(initialHallmarkBalance);
     }
 
@@ -60,13 +59,15 @@ const ReceivedDetails = ({
           const purity = amountAfterHallmark / parseFloatSafe(row.goldRate);
 
           pure -= purity;
+          console.log('pure from receive',pure)
         }
       } else if (row.mode === "amount" && parseFloatSafe(row.paidAmount) > 0) {
         const amount = parseFloatSafe(row.paidAmount);
-       
+        console.log("amount from paid",amount)
         const hallmarkDeduction = Math.min(amount, hallmark);
-         console.log("hallmarkDeduction",hallmarkDeduction)
+         console.log("hallmarkDeduction from paid",hallmarkDeduction)
          hallmark -= hallmarkDeduction;
+         console.log("hallmark from paid",hallmark)
         
         // const amountAfterHallmark = amount - hallmarkDeduction;
         // console.log("amountAfterHallmark",amountAfterHallmark)
@@ -74,6 +75,8 @@ const ReceivedDetails = ({
         if (amount > 0 && row.goldRate) {
           const purity = amount/ parseFloatSafe(row.goldRate);
           pure= purity-row.purityWeight
+          console.log('purity from paid and rowpurity',purity,row.purityWeight)
+          console.log('pure from paid',purity-row.purityWeight)
       }
         
       }
@@ -115,14 +118,13 @@ const ReceivedDetails = ({
           parseFloatSafe((currentBalances.pureBalance).toFixed(3)) * latestGoldRate 
           +
           parseFloatSafe(currentBalances.hallmarkBalance);
-          
-    console.log(' + newTotalBalance',newTotalBalance)
+          console.log(' + newTotalBalance',newTotalBalance)
         
       } else {
         
        console.log("-currentBalances.pureBalance",currentBalances.pureBalance)
         newTotalBalance =
-          parseFloatSafe(currentBalances.pureBalance) * latestGoldRate;
+           parseFloatSafe((currentBalances.pureBalance).toFixed(3)) * latestGoldRate;
           console.log(' - newTotalBalance',newTotalBalance)
       }
     } else {
