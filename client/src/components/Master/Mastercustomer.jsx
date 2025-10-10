@@ -29,7 +29,7 @@ function MasterCustomer() {
     phone: "",
     address: "",
   });
-
+  const [saveDisable,setSaveDisable]=useState(false)
   const openModal = () => {
     setIsModalOpen(true);
     setCustomerName("");
@@ -93,6 +93,7 @@ function MasterCustomer() {
     };
 
     try {
+       setSaveDisable(true)
       const response = await fetch(`${BACKEND_SERVER_URL}/api/customers`, {
         method: "POST",
         headers: {
@@ -105,6 +106,7 @@ function MasterCustomer() {
         const newCustomer = await response.json();
         setCustomers((prev) => [...prev, newCustomer]);
         toast.success("Customer added successfully!");
+         setSaveDisable(false)
         closeModal();
       } else {
         const err = await response.json();
@@ -126,6 +128,7 @@ function MasterCustomer() {
   };
 
   const handleUpdate = async () => {
+     setSaveDisable(true)
     try {
       const response = await fetch(
         `${BACKEND_SERVER_URL}/api/customers/${editCustomer.id}`,
@@ -137,6 +140,7 @@ function MasterCustomer() {
       );
 
       if (response.ok) {
+         setSaveDisable(false)
         const updated = await response.json();
         setCustomers(customers.map((c) => (c.id === updated.id ? updated : c)));
         setEditCustomer(null);
@@ -237,8 +241,8 @@ function MasterCustomer() {
             <Button onClick={closeModal} color="secondary">
               Cancel
             </Button>
-            <Button onClick={handleSaveCustomer} color="primary">
-              Save
+            <Button onClick={handleSaveCustomer} color="primary" disabled={saveDisable} style={{color:saveDisable?"grey":"blue"}}>
+             {saveDisable?"Customer is Saving...":"Save"}
             </Button>
           </DialogActions>
         </Dialog>
@@ -313,8 +317,8 @@ function MasterCustomer() {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setEditCustomer(null)}>Cancel</Button>
-            <Button onClick={handleUpdate} variant="contained" color="primary">
-              Update
+            <Button onClick={handleUpdate} variant="contained" color="primary" disabled={saveDisable} style={{color:saveDisable?"grey":""}}>
+               {saveDisable?"Customer is Updating...":"Update"}
             </Button>
           </DialogActions>
         </Dialog>
