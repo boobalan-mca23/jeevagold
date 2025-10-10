@@ -106,8 +106,8 @@ function MasterCustomer() {
         const newCustomer = await response.json();
         setCustomers((prev) => [...prev, newCustomer]);
         toast.success("Customer added successfully!");
-         setSaveDisable(false)
         closeModal();
+        setSaveDisable(false)
       } else {
         const err = await response.json();
         toast.error("Error: " + err.message);
@@ -140,10 +140,11 @@ function MasterCustomer() {
       );
 
       if (response.ok) {
-         setSaveDisable(false)
+         
         const updated = await response.json();
         setCustomers(customers.map((c) => (c.id === updated.id ? updated : c)));
         setEditCustomer(null);
+        setSaveDisable(false)
         toast.success("Customer updated successfully!");
       } else {
         console.error("Failed to update customer");

@@ -16,7 +16,7 @@ function Cashgold() {
   const [editId, setEditId] = useState(null);
   const [bills, setBills] = useState([]);
   const [billPurityByDate, setBillPurityByDate] = useState({});
-
+  const [saveDisable,setSaveDisable]=useState(false)
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     type: "Select",
@@ -139,6 +139,7 @@ function Cashgold() {
   }, [formData.cashAmount, goldRate, formData.type]);
 
   const handleSubmit = async (e) => {
+    setSaveDisable(true)
     e.preventDefault();
 
     if (formData.type === "Select") {
@@ -206,6 +207,7 @@ function Cashgold() {
       fetchEntries();
       setShowFormPopup(false);
       resetForm();
+      setSaveDisable(false)
     } catch (error) {
       toast.error("Failed to save entry.");
       console.error("Error submitting entry:", error);
@@ -443,8 +445,8 @@ function Cashgold() {
               </div>
 
               <div className="button-group">
-                <button type="submit" className="submit-btn">
-                  {isEditMode ? "Update" : "Save"}
+                <button type="submit" className="submit-btn" disabled={saveDisable}>
+                  {isEditMode ? "Update" : saveDisable?"CashorGold is Saving...":"Save"}
                 </button>
               </div>
             </form>
