@@ -16,7 +16,7 @@ const Masterjewelstock = () => {
     touch: "",
     purityValue: "",
   });
-
+  const [saveDisable,setSaveDisable]=useState(false)
   const [entries, setEntries] = useState([]);
   const [showFormPopup, setShowFormPopup] = useState(false);
   const [totalPurity, setTotalPurity] = useState(0);
@@ -76,6 +76,7 @@ const Masterjewelstock = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     setSaveDisable(true)
     try {
       const url = isEditMode
         ? `${BACKEND_SERVER_URL}/api/jewel-stock/${editId}`
@@ -99,6 +100,7 @@ const Masterjewelstock = () => {
           entry.id === editId ? newEntry : entry
         );
         toast.success("Entry updated successfully!");
+         
       } else {
         updatedEntries = [...entries, newEntry];
         toast.success("Stock added successfully!");
@@ -108,6 +110,7 @@ const Masterjewelstock = () => {
       calculateTotalPurity(updatedEntries);
       resetForm();
       setShowFormPopup(false);
+      setSaveDisable(true)
     } catch (error) {
       console.error(error);
       toast.error("Error saving entry.");
@@ -314,8 +317,8 @@ const Masterjewelstock = () => {
               </div>
 
               <div className="button-group">
-                <button type="submit" className="submit-btn">
-                  {isEditMode ? "Update" : "Save"}
+                <button type="submit" className="submit-btn" disabled={saveDisable}>
+                {isEditMode ? "Update" : saveDisable?"JewelStock is Saving...":"Save"}
                 </button>
               </div>
             </form>
