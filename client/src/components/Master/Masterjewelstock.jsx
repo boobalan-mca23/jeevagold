@@ -110,10 +110,11 @@ const Masterjewelstock = () => {
       calculateTotalPurity(updatedEntries);
       resetForm();
       setShowFormPopup(false);
-      setSaveDisable(true)
+      setSaveDisable(false)
     } catch (error) {
       console.error(error);
       toast.error("Error saving entry.");
+      setSaveDisable(false)
     }
   };
 

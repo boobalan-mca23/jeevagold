@@ -504,7 +504,7 @@ const ReceivedDetails = ({
 
       <div className="flex">
         <div>
-          <b>Pure Balance: {formatToFixed3Strict(currentBalances.pureBalance)}</b>
+          <b>{formatToFixed3Strict(currentBalances.pureBalance) >= 0? "Pure Balance":"Excees Pure Balance"} {formatToFixed3Strict(currentBalances.pureBalance)}</b>
         </div>
         <div>
           <b>
