@@ -168,23 +168,25 @@ const MasterExpense = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setSaveDisable(true)
     const enteredPurity = parseFloat(formData.purity || 0);
 
     if (formData.valueType === "cash/gold") {
-       setSaveDisable(true)
+       
       if (enteredPurity > totalCashGoldEntriesPurity) {
         toast.error(
           `Entered purity exceeds available Cash/Gold limit (${totalCashGoldEntriesPurity})`
         );
+        setSaveDisable(false)
         return;
       }
     } else if (formData.valueType === "advance") {
-      setSaveDisable(true)
+   
       if (enteredPurity > advancesGold) {
         toast.error(
           `Entered purity exceeds available Advance limit (${advancesGold})`
         );
+           setSaveDisable(false)
         return;
       }
     }
@@ -249,6 +251,7 @@ const MasterExpense = () => {
     } catch (error) {
       console.error(error);
       toast.error("Error saving expense.");
+      setSaveDisable(false)
     }
   };
 
@@ -400,6 +403,7 @@ const MasterExpense = () => {
                   onClick={() => {
                     setShowFormPopup(false);
                     resetForm();
+                     
                   }}
                 >
                   Cancel
