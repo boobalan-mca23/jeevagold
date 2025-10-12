@@ -111,10 +111,12 @@ function MasterCustomer() {
       } else {
         const err = await response.json();
         toast.error("Error: " + err.message);
+         setSaveDisable(false)
       }
     } catch (error) {
       console.error("Error saving customer:", error);
       toast.error("Something went wrong.");
+       setSaveDisable(false)
     }
   };
 
@@ -128,7 +130,7 @@ function MasterCustomer() {
   };
 
   const handleUpdate = async () => {
-     setSaveDisable(true)
+    
     try {
       const response = await fetch(
         `${BACKEND_SERVER_URL}/api/customers/${editCustomer.id}`,
@@ -144,7 +146,7 @@ function MasterCustomer() {
         const updated = await response.json();
         setCustomers(customers.map((c) => (c.id === updated.id ? updated : c)));
         setEditCustomer(null);
-        setSaveDisable(false)
+       
         toast.success("Customer updated successfully!");
       } else {
         console.error("Failed to update customer");

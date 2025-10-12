@@ -144,17 +144,20 @@ function Cashgold() {
 
     if (formData.type === "Select") {
       toast.error("Please select a valid type: Cash or Gold");
+        setSaveDisable(false)
       return;
     }
 
     if (formData.type === "Cash") {
       if (!formData.cashAmount || isNaN(formData.cashAmount)) {
         toast.error("Please enter a valid Cash Amount");
+          setSaveDisable(false)
         return;
       }
 
       if (!goldRate || isNaN(goldRate)) {
         toast.error("Please enter a valid Gold Rate");
+          setSaveDisable(false)
         return;
       }
     }
@@ -162,11 +165,13 @@ function Cashgold() {
     if (formData.type === "Gold") {
       if (!formData.goldValue || isNaN(formData.goldValue)) {
         toast.error("Please enter a valid Gold Value");
+          setSaveDisable(false)
         return;
       }
 
       if (!formData.touch || isNaN(formData.touch)) {
         toast.error("Please enter a valid Touch value");
+          setSaveDisable(false)
         return;
       }
     }
@@ -179,6 +184,7 @@ function Cashgold() {
       parseFloat(goldRate) < 0
     ) {
       toast.error("Negative values are not allowed.");
+        setSaveDisable(false)
       return;
     }
 
@@ -211,6 +217,7 @@ function Cashgold() {
     } catch (error) {
       toast.error("Failed to save entry.");
       console.error("Error submitting entry:", error);
+        setSaveDisable(false)
     }
   };
 
