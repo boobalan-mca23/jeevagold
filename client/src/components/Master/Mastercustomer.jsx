@@ -130,7 +130,38 @@ function MasterCustomer() {
   };
 
   const handleUpdate = async () => {
-    
+   
+    if (editedData.name.trim() === "") {
+      toast.warn("Customer name is required.");
+      return;
+    }
+     
+      if (!/^[A-Za-z ]+$/.test(editedData.name.trim())) {
+      toast.error("Customer name must contain only alphabets and spaces.");
+      return;
+    }
+
+    const trimmedPhone = editedData.phone.trim();
+
+    if (!/^\d+$/.test(trimmedPhone)) {
+      toast.error("Phone number must contain only digits (0–9).");
+      return;
+    }
+
+    if (trimmedPhone.length < 10) {
+      toast.error("Phone number must be exactly 10 digits.");
+      return;
+    }
+
+    if (trimmedPhone.length > 10) {
+      toast.error("Phone number must not exceed 10 digits.");
+      return;
+    }
+
+    if (!/^[6-9]/.test(trimmedPhone)) {
+      toast.error("Phone number must start with 6, 7, 8, or 9.");
+      return;
+    }
     try {
       const response = await fetch(
         `${BACKEND_SERVER_URL}/api/customers/${editCustomer.id}`,

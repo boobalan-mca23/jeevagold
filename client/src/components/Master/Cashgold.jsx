@@ -129,7 +129,7 @@ function Cashgold() {
     if (formData.type === "Cash") {
       const cashAmount = parseFloat(formData.cashAmount);
       const rate = parseFloat(goldRate);
-      if (!isNaN(cashAmount) && !isNaN(rate)) {
+      if (!isNaN(cashAmount) || !isNaN(rate)) {
         setFormData((prev) => ({
           ...prev,
           purity: formatToFixed3Strict(cashAmount / rate),
