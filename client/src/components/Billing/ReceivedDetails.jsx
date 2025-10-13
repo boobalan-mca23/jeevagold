@@ -74,7 +74,7 @@ const ReceivedDetails = ({
 
         if (amount > 0 && row.goldRate) {
           const purity = amount/ parseFloatSafe(row.goldRate);
-          pure= purity-row.purityWeight
+          pure= row.purityWeight-purity
           console.log('purity from paid and rowpurity',purity,row.purityWeight)
           console.log('pure from paid',purity-row.purityWeight)
       }
