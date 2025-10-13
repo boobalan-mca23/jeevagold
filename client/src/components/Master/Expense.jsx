@@ -170,7 +170,16 @@ const MasterExpense = () => {
     e.preventDefault();
     setSaveDisable(true)
     const enteredPurity = parseFloat(formData.purity || 0);
-
+    console.log('enteredPurity',enteredPurity)
+    if (enteredPurity<=0) {
+   
+        toast.error(
+          `purity value must be Greater Than 0 (${enteredPurity})`
+        );
+           setSaveDisable(false)
+        return;
+      
+    }
     if (formData.valueType === "cash/gold") {
        
       if (enteredPurity > totalCashGoldEntriesPurity) {
@@ -189,7 +198,7 @@ const MasterExpense = () => {
            setSaveDisable(false)
         return;
       }
-    }
+    } 
 
     try {
       const url = isEditMode
@@ -435,7 +444,7 @@ const MasterExpense = () => {
               {entries.map((entry, index) => (
                 <tr key={entry.id}>
                   <td>{index + 1}</td>
-                  <td>{new Date(entry.date).toLocaleDateString()}</td>
+                  <td>{new Date(entry.date).toLocaleDateString("en-GB")}</td>
                   <td>
                     {entry.valueType === "cash/gold"
                       ? "Cash / Gold"
