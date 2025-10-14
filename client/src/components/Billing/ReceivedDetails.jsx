@@ -64,19 +64,21 @@ const ReceivedDetails = ({
       } else if (row.mode === "amount" && parseFloatSafe(row.paidAmount) > 0) {
          const amount = parseFloatSafe(row.paidAmount);
          console.log("amount from paid",amount)
-         const hallmarkDeduction = Math.min(amount, hallmark);
-         console.log("hallmarkDeduction from paid",hallmarkDeduction)
-         hallmark -= hallmarkDeduction;
-         console.log("hallmark from paid",hallmark)
+        //  const hallmarkDeduction = Math.min(amount, hallmark);
+        //  console.log("hallmarkDeduction from paid",hallmarkDeduction)
+        //  hallmark -= hallmarkDeduction;
+        //  console.log("hallmark from paid",hallmark)
         
         // const amountAfterHallmark = amount - hallmarkDeduction;
         // console.log("amountAfterHallmark",amountAfterHallmark)
 
         if (amount > 0 && row.goldRate) {
-          const purity = amount/ parseFloatSafe(row.goldRate);
-          pure=purity-row.purityWeight
-          console.log('purity from paid and rowpurity',purity,row.purityWeight)
-          console.log('pure from paid',purity-row.purityWeight)
+          
+           let purehallmark=(hallmark/row.goldRate).toFixed(3)
+           let pureamt =(amount/ parseFloatSafe(row.goldRate)).toFixed(3) 
+           pure=pure+Number(Math.abs(purehallmark))+Number(Math.abs(pureamt))
+            // pure=(pure+(Number(purehallmark)+Number(pureamt))).toFixed(3)
+           
       }
         
       }
@@ -118,14 +120,17 @@ const ReceivedDetails = ({
           parseFloatSafe((currentBalances.pureBalance).toFixed(3)) * latestGoldRate 
           +
           parseFloatSafe(currentBalances.hallmarkBalance);
-          console.log(' + newTotalBalance',newTotalBalance)
+          console.log(' + newTotalBalance',currentBalances.pureBalance,latestGoldRate,currentBalances.hallmarkBalance)
+          console.log('pure tofixed',(currentBalances.pureBalance).toFixed(3));
+          
         
       } else {
         
-       console.log("-currentBalances.pureBalance",currentBalances.pureBalance)
+        console.log("-currentBalances.pureBalance",currentBalances.pureBalance)
         newTotalBalance =
            parseFloatSafe((currentBalances.pureBalance).toFixed(3)) * latestGoldRate;
           console.log(' - newTotalBalance',newTotalBalance)
+          
       }
     } else {
       
@@ -198,11 +203,6 @@ const ReceivedDetails = ({
     if (isViewMode && !rows[index].isNew) {
       return;
     }
-
-    //  if(field==="goldRate"){
-    //    currentBalances.pureBalance=currentBalances.hallmark/parseFloatSafe(value)-currentBalances.pureBalance
-    //     console.log('paid amount time',currentBalances.pureBalance)
-    //  }   
 
     const updatedRows = [...rows];
     const row = updatedRows[index];
