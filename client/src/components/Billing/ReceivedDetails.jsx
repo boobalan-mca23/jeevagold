@@ -73,12 +73,25 @@ const ReceivedDetails = ({
         // console.log("amountAfterHallmark",amountAfterHallmark)
 
         if (amount > 0 && row.goldRate) {
-          
-           let purehallmark=(hallmark/row.goldRate).toFixed(3)
-           let pureamt =(amount/ parseFloatSafe(row.goldRate)).toFixed(3) 
-           pure=pure+Number(Math.abs(purehallmark))+Number(Math.abs(pureamt))
-            // pure=(pure+(Number(purehallmark)+Number(pureamt))).toFixed(3)
-           
+           let hb=Number((hallmark/row.goldRate))
+           console.log('hb',hb)
+           let pureamt =Number((amount/ parseFloatSafe(row.goldRate)))
+           console.log('pureamt',pureamt)
+ 
+           if(hb>pure){
+            pure= pure+hb
+            console.log('before pure',pure)
+            hallmark=0
+            pure=pure+pureamt 
+            
+            // pure=Math.abs((pure).toFixed(3))
+             console.log('After pure',pure)
+            
+           }
+           else{
+               hallmark= (pure-hb)/row.goldRate
+               pure=Number((pure-hb).toFixed(3))
+           }     
       }
         
       }
